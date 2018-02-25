@@ -253,10 +253,10 @@ export class GridList {
                 if (item.getValueY(breakpoint) !== initItem.getValueY(breakpoint)) {
                     changes.push('y');
                 }
-                if (item.w !== initItem.w) {
+                if (item.getValueW(breakpoint) !== initItem.getValueW(breakpoint)) {
                     changes.push('w');
                 }
-                if (item.h !== initItem.h) {
+                if (item.getValueH(breakpoint) !== initItem.getValueH(breakpoint)) {
                     changes.push('h');
                 }
 
@@ -367,6 +367,7 @@ export class GridList {
     }
 
     fixItemsPositions(options: IGridsterOptions) {
+        console.warn('fixItemsPositions',options );
         // items with x, y that fits gird with size of options.lanes
         const validItems = this.items
             .filter((item: GridListItem) => item.itemComponent)
@@ -406,8 +407,8 @@ export class GridList {
 
             itm.setValueX(cachedItem.x, options.breakpoint);
             itm.setValueY(cachedItem.y, options.breakpoint);
-            itm.w = cachedItem.w;
-            itm.h = cachedItem.h;
+            itm.setValueW(cachedItem.w, options.breakpoint);
+            itm.setValueH(cachedItem.h, options.breakpoint);
             itm.autoSize = cachedItem.autoSize;
         });
     }
@@ -448,13 +449,13 @@ export class GridList {
         const itemData = options.direction === 'horizontal' ? {
             x: item.getValueY(options.breakpoint),
             y: item.getValueX(options.breakpoint),
-            w: item.h,
+            w: item.getValueW(options.breakpoint),
             h: Math.min(item.w, options.lanes)
         } : {
             x: item.getValueX(options.breakpoint),
             y: item.getValueY(options.breakpoint),
             w: Math.min(item.w, options.lanes),
-            h: item.h
+            h: item.getValueH(options.breakpoint)
         };
 
         return typeof itemData.x === 'number' &&

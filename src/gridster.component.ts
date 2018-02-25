@@ -106,6 +106,7 @@ export class GridsterComponent implements OnInit, AfterContentInit, OnDestroy {
             })
             .do((options) => {
                 this.optionsChange.emit(options);
+                console.warn('optionsChange rwd brakepoint');
             })
             .subscribe();
         this.subscription.add(changeSub);

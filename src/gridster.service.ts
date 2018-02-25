@@ -540,11 +540,11 @@ export class GridsterService {
                     itemChange.item.triggerChangeY(breakpoint);
                 }
                 // size change should be called only once (not for each breakpoint)
-                if (!breakpoint && itemChange.changes.indexOf('w') >= 0) {
-                    itemChange.item.itemComponent.wChange.emit(itemChange.item.w);
+                if (itemChange.changes.indexOf('w') >= 0) {
+                    itemChange.item.triggerChangeW(breakpoint);
                 }
-                if (!breakpoint && itemChange.changes.indexOf('h') >= 0) {
-                    itemChange.item.itemComponent.hChange.emit(itemChange.item.h);
+                if (itemChange.changes.indexOf('h') >= 0) {
+                    itemChange.item.triggerChangeH(breakpoint);
                 }
                 // should be called only once (not for each breakpoint)
                 itemChange.item.itemComponent.change.emit({

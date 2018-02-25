@@ -23,6 +23,20 @@ export class AppComponent {
         xl: 'yXl'
     };
 
+  static W_PROPERTY_MAP: any = {
+    sm: 'wSm',
+    md: 'wMd',
+    lg: 'wLg',
+    xl: 'wXl'
+  };
+
+  static H_PROPERTY_MAP: any = {
+    sm: 'hSm',
+    md: 'hMd',
+    lg: 'hLg',
+    xl: 'hXl'
+  };
+
     @ViewChild(GridsterComponent) gridster: GridsterComponent;
     itemOptions = {
         maxWidth: 3,
@@ -62,8 +76,8 @@ export class AppComponent {
         responsiveOptions: [
             {
                 breakpoint: 'sm',
-                // minWidth: 480,
-                lanes: 3
+                minWidth: 480,
+                lanes: 1
             },
             {
                 breakpoint: 'md',
@@ -88,32 +102,51 @@ export class AppComponent {
     title = 'Angular2Gridster';
     widgets: Array<any> = [
         {
-            x: 0, y: 0,
-            w: 1, h: 2,
+            x: 0, y: 0, w: 1, h: 2,
+            xSm: 0, ySm: 0, wSm: 1, hSm: 1,
+            xMd: 0, yMd: 0, wMd: 1, hMd: 2,
+            xLg: 0, yLg: 0, wLg: 2, hLg: 3,
+            xXl: 0, yXl: 0, wXl: 2, hXl: 2,
             dragAndDrop: true,
             resizable: true,
             title: 'Basic form inputs 1'
         },
         {
             x: 1, y: 0, w: 3, h: 1,
+            xSm: 0, ySm: 1, wSm: 1, hSm: 1,
+            xMd: 1, yMd: 0, wMd: 3, hMd: 1,
+            xLg: 2, yLg: 0, wLg: 2, hLg: 1,
+            xXl: 2, yXl: 0, wXl: 2, hXl: 2,
             dragAndDrop: true,
             resizable: true,
             title: 'Basic form inputs 2'
         },
         {
-            x: 1, y: 1, w: 2, h: 1,
+            x: 1, y: 0, w: 2, h: 1,
+            xSm: 0, ySm: 2, wSm: 1, hSm: 1,
+            xMd: 1, yMd: 1, wMd: 1, hMd: 1,
+            xLg: 4, yLg: 0, wLg: 2, hLg: 1,
+            xXl: 4, yXl: 0, wXl: 3, hXl: 1,
             dragAndDrop: true,
             resizable: true,
             title: 'Basic form inputs 3'
         },
         {
-            x: 3, y: 1, w: 1, h: 2,
+            x: 3, y: 0, w: 1, h: 2,
+            xSm: 0, ySm: 3, wSm: 1, hSm: 1,
+            xMd: 2, yMd: 1, wMd: 1, hMd: 2,
+            xLg: 2, yLg: 1, wLg: 2, hLg: 2,
+            xXl: 2, yXl: 1, wXl: 3, hXl: 2,
             dragAndDrop: true,
             resizable: true,
             title: 'Basic form inputs 4'
         },
         {
-            w: 1, h: 2,
+            x: 4, y: 0, w: 1, h: 2,
+            xSm: 0, ySm: 4, wSm: 1, hSm: 1,
+            xMd: 3, yMd: 1, wMd: 1, hMd: 2,
+            xLg: 4, yLg: 1, wLg: 2, hLg: 2,
+            xXl: 4, yXl: 1, wXl: 3, hXl: 2,
             dragAndDrop: true,
             resizable: true,
             title: 'Basic form inputs x'

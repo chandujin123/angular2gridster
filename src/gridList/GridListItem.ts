@@ -18,6 +18,20 @@ export class GridListItem {
         xl: 'yXl'
     };
 
+    static W_PROPERTY_MAP: any = {
+        sm: 'wSm',
+        md: 'wMd',
+        lg: 'wLg',
+        xl: 'wXl'
+    };
+
+    static H_PROPERTY_MAP: any = {
+        sm: 'hSm',
+        md: 'hMd',
+        lg: 'hLg',
+        xl: 'hXl'
+    };
+
     itemComponent: GridsterItemComponent;
     itemPrototype: GridsterItemPrototypeDirective;
     itemObject: any;
@@ -54,20 +68,28 @@ export class GridListItem {
 
     get w () {
         const item = this.getItem();
+        const breakpoint = item.gridster ? item.gridster.options.breakpoint : null;
 
-        return item.w;
+        return this.getValueW(breakpoint);
     }
     set w (value: number) {
-        this.getItem().w = value;
+        const item = this.getItem();
+        const breakpoint = item.gridster ? item.gridster.options.breakpoint : null;
+
+        this.setValueW(value, breakpoint);
     }
 
     get h () {
         const item = this.getItem();
+        const breakpoint = item.gridster ? item.gridster.options.breakpoint : null;
 
-        return item.h;
+        return this.getValueH(breakpoint);
     }
     set h (value: number) {
-        this.getItem().h = value;
+        const item = this.getItem();
+        const breakpoint = item.gridster ? item.gridster.options.breakpoint : null;
+
+        this.setValueH(value, breakpoint);
     }
 
     get autoSize () {
@@ -153,8 +175,8 @@ export class GridListItem {
             $element: this.$element,
             x: this.getValueX(breakpoint),
             y: this.getValueY(breakpoint),
-            w: this.w,
-            h: this.h,
+            w: this.getValueW(breakpoint),
+            h: this.getValueH(breakpoint),
             autoSize: this.autoSize,
             dragAndDrop: this.dragAndDrop,
             resizable: this.resizable
@@ -173,6 +195,18 @@ export class GridListItem {
         return item[this.getYProperty(breakpoint)];
     }
 
+    public getValueW(breakpoint?) {
+        const item = this.getItem();
+
+        return item[this.getWProperty(breakpoint)];
+    }
+
+    public getValueH(breakpoint?) {
+        const item = this.getItem();
+
+        return item[this.getHProperty(breakpoint)];
+    }
+
     public setValueX(value: number, breakpoint?) {
         const item = this.getItem();
 
@@ -183,6 +217,18 @@ export class GridListItem {
         const item = this.getItem();
 
         item[this.getYProperty(breakpoint)] = value;
+    }
+
+    public setValueW(value: number, breakpoint?) {
+        const item = this.getItem();
+
+        item[this.getWProperty(breakpoint)] = value;
+    }
+
+    public setValueH(value: number, breakpoint?) {
+        const item = this.getItem();
+
+        item[this.getHProperty(breakpoint)] = value;
     }
 
     public triggerChangeX(breakpoint?) {
@@ -199,12 +245,25 @@ export class GridListItem {
         }
     }
 
+    public triggerChangeW(breakpoint?) {
+        const item = this.itemComponent;
+        if (item) {
+            item[this.getWProperty(breakpoint) + 'Change'].emit(this.getValueW(breakpoint));
+        }
+    }
+
+    public triggerChangeH(breakpoint?) {
+        const item = this.itemComponent;
+        if (item) {
+            item[this.getHProperty(breakpoint) + 'Change'].emit(this.getValueH(breakpoint));
+        }
+    }
+
     public hasPositions(breakpoint?) {
         const x = this.getValueX(breakpoint);
         const y = this.getValueY(breakpoint);
 
-        return (x || x === 0) &&
-            (y || y === 0);
+        return (x || x === 0) && (y || y === 0);
     }
 
     public applyPosition(gridster?: GridsterService) {
@@ -271,6 +330,24 @@ export class GridListItem {
             return GridListItem.Y_PROPERTY_MAP[breakpoint];
         } else {
             return 'y';
+        }
+    }
+
+    private getWProperty(breakpoint?: string) {
+
+        if (breakpoint && this.itemComponent) {
+            return GridListItem.W_PROPERTY_MAP[breakpoint];
+        } else {
+            return 'w';
+        }
+    }
+
+    private getHProperty(breakpoint?: string) {
+
+        if (breakpoint && this.itemComponent) {
+            return GridListItem.H_PROPERTY_MAP[breakpoint];
+        } else {
+            return 'h';
         }
     }
 
